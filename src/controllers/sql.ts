@@ -2,7 +2,7 @@ import { Connection, createConnection, RowDataPacket } from 'mysql2/promise';
 
 async function connectToSQL(): Promise<Connection> {
   return await createConnection({
-    socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
+    socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock', // Make MAMP compatible on UNIX
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASS,
