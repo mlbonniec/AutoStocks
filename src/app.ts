@@ -1,25 +1,18 @@
 import { GoogleSpreadsheetWorksheet } from 'google-spreadsheet';
-import { getBarcodes, getSkus } from './controllers/sql';
+import { getBarcodes, getSkus, IBarcodes, ISkus } from './controllers/sql';
 import loadSheet from './controllers/load-sheet';
 
 (async () => {
   const sheet: GoogleSpreadsheetWorksheet = await loadSheet();
+
+  const barcodes: IBarcodes | null = await getBarcodes('3350033630314');
+  const skus: ISkus | null = await getSkus(barcodes.skuId);
   
-  const sheetRow: object = {};
-  const codebar: string = '3350033630314' // Temporary
-  
-  const barcode = await getBarcodes(codebar);
-  const skus = await getSkus(barcode.skuId);
-  
-  sheetRow['MPX'] = barcode.skuId;
-  sheetRow['Code-barre'] = barcode.barcode;
-  sheetRow['Asset Fill'] = barcode.assetFill;
-  
-  sheetRow['Designation'] = skus.description;
-  sheetRow['Zones'] = skus.receivableZones;
-  
-  // console.log(barcode);
-  // console.log(skus);
-  
-  await sheet.addRow({ ...sheetRow });
+  await sheet.addRow({
+    'MPX': barcodes.skuId,
+    'Code-barre': barcodes.barcode,
+    'Asset Fill': barcodes.assetFill,
+    'Designation': skus.description,
+    'Zones': skus.receivableZones,
+  });
 })();

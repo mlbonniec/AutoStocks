@@ -1,5 +1,16 @@
 import { Connection, createConnection, RowDataPacket } from 'mysql2/promise';
 
+export interface IBarcodes {
+  skuId: string;
+  barcode: string;
+  assetFill: string;
+}
+
+export interface ISkus {
+  description: string;
+  receivableZones: string;
+}
+
 async function connectToSQL(): Promise<Connection> {
   return await createConnection({
     socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock', // Make MAMP compatible on UNIX
@@ -10,7 +21,7 @@ async function connectToSQL(): Promise<Connection> {
   });
 }
 
-export async function getBarcodes(barcode: string): Promise<RowDataPacket | null> {
+export async function getBarcodes(barcode: string): Promise<IBarcodes|null> {
   const connection = await connectToSQL();
   
   const [rows] = await connection.execute('SELECT skuId, barcode, assetFill FROM barcodes WHERE barcode = ?', [barcode]);
@@ -22,7 +33,7 @@ export async function getBarcodes(barcode: string): Promise<RowDataPacket | null
   return null;
 }
 
-export async function getSkus(skuId: string): Promise<RowDataPacket | null> {
+export async function getSkus(skuId: string): Promise<ISkus|null> {
   const connection = await connectToSQL();
   
   const [rows] = await connection.execute('SELECT description, receivableZones FROM skus WHERE skuId = ?', [skuId]);
