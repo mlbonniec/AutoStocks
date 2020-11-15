@@ -1,5 +1,5 @@
 {
-  "name": "auto-stocks",
+  "name": "autostocks",
   "version": "1.0.0",
   "description": "Complete the inventory by adding the data in a Google Sheets.",
   "main": "./dist/app.js",
