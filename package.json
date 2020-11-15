@@ -1,0 +1,38 @@
+{
+  "name": "auto-stocks",
+  "version": "1.0.0",
+  "description": "Complete the inventory by adding the data in a Google Sheets.",
+  "main": "./dist/app.js",
+  "scripts": {
+    "build": "npx tsc",
+    "clean": "rm -rf ./dist",
+    "dev": "nodemon -r dotenv/config --exec ts-node --files ./src/app.ts",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
+    "prod": "NODE_ENV=production node .",
+    "start": "npm run build && npm run prod"
+  },
+  "keywords": [
+    "sheets",
+    "google",
+    "api",
+    "rest",
+    "stocks",
+    "automation"
+  ],
+  "author": "Mathis Le Bonniec",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "google-spreadsheet": "^3.0.13",
+    "mysql2": "^2.2.5"
+  },
+  "devDependencies": {
+    "@types/google-spreadsheet": "^3.0.2",
+    "@types/mysql2": "github:types/mysql2",
+    "@types/node": "^14.14.7",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
+  }
+}
