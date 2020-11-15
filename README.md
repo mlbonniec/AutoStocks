@@ -1,6 +1,6 @@
 # AutoStocks
 
-This project is very specific. It helps a food warehouse to automate product anomalies.  
+This project is very specific. It helps a food warehouse to automate the reporting of product anomalies.  
 With a simple HTTP request, AutoStocks retrieves the product data from an SKU, processes it and adds the necessary data to a Google Sheets, in order to further process the product anomaly.
 
 # Todo
