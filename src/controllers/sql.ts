@@ -25,7 +25,6 @@ export async function getBarcodes(barcode: string): Promise<IBarcodes|null> {
   const connection = await connectToSQL();
   
   const [rows] = await connection.execute('SELECT skuId, barcode, assetFill FROM barcodes WHERE barcode = ?', [barcode]);
-  console.log(rows)
   
   if (rows[0])
     return rows[0];
