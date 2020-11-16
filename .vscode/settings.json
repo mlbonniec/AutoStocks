@@ -1,7 +1,0 @@
-{
-  "conventionalCommits.scopes": [
-    "log",
-    "config",
-    "api"
-  ]
-}
