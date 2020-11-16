@@ -1,17 +1,21 @@
+import express, { Application } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import index from './routes/index';
 
-(async () => {
-  const barcodes: IBarcodes | null = await getBarcodes('3350033630314');
-  const skus: ISkus | null = await getSkus(barcodes.skuId);
-  
-  await addRow({
-    'MPX': barcodes.skuId,
-    'Code-barre': barcodes.barcode,
-    'Asset Fill': barcodes.assetFill,
-    'Designation': skus.description,
-    'Zones': skus.receivableZones,
-  });
-})();
+const app: Application = express();
+
+app.use(cors());
+app.use(helmet());
+app.use(morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use('/', index);
+
+// Application listener
+app.listen(process.env.PORT, () => {
+	console.log(`Server is now listening on port ${process.env.PORT}`);
+});
