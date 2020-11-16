@@ -11,7 +11,7 @@ router.get('/:skuId', async (req: Request, res: Response) => {
   try {
     const barcodes: IBarcodes | null = await getBarcodes(skuId);
     if (!barcodes)
-      return res.json({ error: "SKU not found." });
+      return res.status(404).json({ error: 'SKU not found.' });
 
     const skus: ISkus | null = await getSkus(barcodes.skuId);
     await addRow({
@@ -22,10 +22,10 @@ router.get('/:skuId', async (req: Request, res: Response) => {
       'Zones': skus.receivableZones,
     });
 
-    res.json({ success: "Good." });
+    res.status(204).send();
   } catch (e) {
     console.error(e);
-    res.json({ error: "Internal Error." });
+    res.status(500).json({ error: 'An internal error has occured. Please try again later.' })
   }
 });
 
