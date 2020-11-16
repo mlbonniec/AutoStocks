@@ -24,7 +24,9 @@ router.get('/:skuId', async (req: Request, res: Response) => {
 
     res.status(204).send();
   } catch (e) {
-    console.error(e);
+    if (process.env.NODE_ENV === 'production')
+      console.error(e);
+
     res.status(500).json({ error: 'An internal error has occured. Please try again later.' })
   }
 });
