@@ -4,8 +4,13 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import index from './routes/index';
+import { setupReactViews } from 'express-tsx-views'
 
 const app: Application = express();
+
+setupReactViews(app, {
+	viewsDirectory: __dirname + '/views',
+});
 
 app.use(cors());
 app.use(helmet());

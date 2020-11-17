@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "clean": "rm -rf ./dist",
-    "dev": "nodemon -r dotenv/config --exec ts-node --files ./src/app.ts",
+    "dev": "tsnd --clear -r dotenv/config src/app.ts",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
     "prod": "NODE_ENV=production node .",
@@ -21,16 +21,19 @@
     "automation"
   ],
   "author": "Mathis Le Bonniec",
-  "license": "GPLv3",
+  "license": "GPL-3.0-or-later",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-tsx-views": "^1.2.3",
     "google-spreadsheet": "^3.0.13",
     "helmet": "^4.2.0",
     "morgan": "^1.10.0",
-    "mysql2": "^2.2.5"
+    "mysql2": "^2.2.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
@@ -40,8 +43,8 @@
     "@types/morgan": "^1.9.2",
     "@types/mysql2": "github:types/mysql2",
     "@types/node": "^14.14.7",
-    "nodemon": "^2.0.6",
-    "ts-node": "^9.0.0",
+    "@types/react": "^16.9.56",
+    "ts-node-dev": "^1.0.0",
     "typescript": "^4.0.5"
   }
 }

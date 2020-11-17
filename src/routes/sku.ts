@@ -14,15 +14,16 @@ router.get('/:skuId', async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'SKU not found.' });
 
     const skus: ISkus | null = await getSkus(barcodes.skuId);
-    await addRow({
+    const row: object = {
       'MPX': barcodes.skuId,
       'Code-barre': barcodes.barcode,
       'Asset Fill': barcodes.assetFill,
       'Designation': skus.description,
       'Zones': skus.receivableZones,
-    });
+    };
+    await addRow(row);
 
-    res.status(204).send();
+    res.status(200).send(row);
   } catch (e) {
     if (process.env.NODE_ENV === 'production')
       console.error(e);

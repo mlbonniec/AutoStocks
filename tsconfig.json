@@ -9,6 +9,7 @@
 			"./src/@types",
 		],
 		"esModuleInterop": true,
+		"jsx": "react",
 	},
 	"allowSyntheticDefaultImports": true,
   "include": ["./src/**/*", "./tsconfig.json"],
