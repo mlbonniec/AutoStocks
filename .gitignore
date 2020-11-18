@@ -1,12 +1,12 @@
 # Modules
-/node_modules
+node_modules
 
 # Build folders
-/build
-/dist
+build
+dist
 
 # Files
 .env
 
 # VS Code
-/.vscode
+.vscode
