@@ -27,7 +27,6 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-tsx-views": "^1.2.3",
     "google-spreadsheet": "^3.0.13",
     "helmet": "^4.2.0",
     "morgan": "^1.10.0",
