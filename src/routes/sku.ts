@@ -4,7 +4,7 @@ import { Router, Request, Response } from 'express';
 
 const router = Router();
 
-router.get('/:skuId', async (req: Request, res: Response) => {
+router.post('/:skuId', async (req: Request, res: Response) => {
   const { skuId } = req.params;
   // sku id example: 3350033630314
 
