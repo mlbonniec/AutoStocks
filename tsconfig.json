@@ -8,8 +8,9 @@
 			"./node_modules/@types",
 			"./src/@types",
 		],
-		"esModuleInterop": true,
 		"jsx": "react",
+		"esModuleInterop": true,
+		"resolveJsonModule": true
 	},
 	"allowSyntheticDefaultImports": true,
   "include": ["./src/**/*", "./tsconfig.json"],
