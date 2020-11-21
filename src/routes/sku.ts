@@ -5,8 +5,7 @@ import Sheet from '../controllers/sheet';
 const router = Router();
 const sheet = new Sheet(process.env.GOOGLE_SPREADSHEETS_ID, process.env.GOOGLE_SHEET_ID);
 
-// router.post('/:skuId', async (req: Request, res: Response) => {
-router.get('/:skuId', async (req: Request, res: Response) => {
+router.post('/:skuId', async (req: Request, res: Response) => {
   const { skuId } = req.params;
   // sku id example: 3350033630314
 
