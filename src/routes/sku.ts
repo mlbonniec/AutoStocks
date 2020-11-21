@@ -7,7 +7,6 @@ const sheet = new Sheet(process.env.GOOGLE_SPREADSHEETS_ID, process.env.GOOGLE_S
 
 router.post('/:skuId', async (req: Request, res: Response) => {
   const { skuId } = req.params;
-  // sku id example: 3350033630314
 
   try {    
     const row: ISku = data.find((e: ISku) => e.EAN === parseInt(skuId, 10))
