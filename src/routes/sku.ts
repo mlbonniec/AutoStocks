@@ -1,27 +1,20 @@
-import { getBarcodes, getSkus, IBarcodes, ISkus } from '../controllers/sql';
-import { addRow } from '../controllers/sheet';
 import { Router, Request, Response } from 'express';
+import data, { ISku } from '../controllers/data';
+import Sheet from '../controllers/sheet';
 
 const router = Router();
+const sheet = new Sheet(process.env.GOOGLE_SPREADSHEETS_ID, process.env.GOOGLE_SHEET_ID);
 
 router.post('/:skuId', async (req: Request, res: Response) => {
   const { skuId } = req.params;
-  // sku id example: 3350033630314
 
-  try {
-    const barcodes: IBarcodes | null = await getBarcodes(skuId);
-    if (!barcodes)
+  try {    
+    const row: ISku = data.find((e: ISku) => e.EAN === parseInt(skuId, 10))
+    if (!row)
       return res.status(404).json({ error: 'SKU not found.' });
-
-    const skus: ISkus | null = await getSkus(barcodes.skuId);
-    const row: object = {
-      'MPX': barcodes.skuId,
-      'Code-barre': barcodes.barcode,
-      'Asset Fill': barcodes.assetFill,
-      'Designation': skus.description,
-      'Zones': skus.receivableZones,
-    };
-    await addRow(row);
+    
+    await sheet.init();
+    await sheet.addRow(row);
 
     res.status(200).send(row);
   } catch (e) {

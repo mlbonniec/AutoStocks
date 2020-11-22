@@ -1,19 +1,37 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet';
+import { ISku } from './data';
 
-async function loadSheet() {
-  const spreadsheet: GoogleSpreadsheet = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEETS_ID);
-  await spreadsheet.useServiceAccountAuth({
-    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY,
-  });
+declare class ISpreadSheet {
+  constructor(spreadsheetID: string, worksheetID: string);
 
-  await spreadsheet.loadInfo();
-
-  return spreadsheet.sheetsById[process.env.GOOGLE_SHEET_ID];
+  init(): Promise<void>;
+  addRow(row: ISku): Promise<void>;
 }
 
-export async function addRow(row: object): Promise<void> {
-  const sheet: GoogleSpreadsheetWorksheet = await loadSheet();
+class SpreadSheet implements ISpreadSheet {
+  public readonly spreadsheet: GoogleSpreadsheet;
+  private readonly worksheetID: string;
+  private worksheet: GoogleSpreadsheetWorksheet;
   
-  await sheet.addRow(<any>row);
+  constructor(spreadsheetID, worksheetID) {
+    this.spreadsheet = new GoogleSpreadsheet(spreadsheetID);
+    this.worksheetID = worksheetID;
+  }
+  
+  public async init(): Promise<void> {
+    await this.spreadsheet.useServiceAccountAuth({
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY,
+    });
+    
+    await this.spreadsheet.loadInfo();
+    
+    this.worksheet = this.spreadsheet.sheetsById[this.worksheetID];
+  }
+  
+  public async addRow(row: ISku): Promise<void> {
+    await this.worksheet.addRow(<any>row);
+  }
 }
+
+export default SpreadSheet;

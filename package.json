@@ -2,14 +2,14 @@
   "name": "autostocks",
   "version": "1.0.0",
   "description": "Complete the inventory by adding the data in a Google Sheets.",
-  "main": "./dist/app.js",
+  "main": "./dist/src/app.js",
   "scripts": {
     "build": "npx tsc",
     "clean": "rm -rf ./dist",
     "dev": "tsnd --clear -r dotenv/config src/app.ts",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
-    "prod": "NODE_ENV=production node .",
+    "prod": "NODE_ENV=production node -r dotenv/config .",
     "start": "npm run build && npm run prod"
   },
   "keywords": [
