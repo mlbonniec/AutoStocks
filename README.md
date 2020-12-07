@@ -6,13 +6,14 @@ With a simple HTTP request, AutoStocks retrieves the product data from the [Open
 # Todo
   - [x] Replace SQL queries by an external REST API
   - [x] Create API routes
-  - [ ] Replace JSON data by the OpenFoodAct API
-  - [ ] Update inserted data
-    - [ ] Brand Owner (`brand_owner`)
-    - [ ] Image URL (`image_url`)
-    - [ ] Origins (`origins`)
-    - [ ] Barcode (`code`)
-    - [ ] Name (`product_name`)
+  - [x] Replace JSON data by the OpenFoodAct API
+  - [x] Update inserted data
+    - [x] EAN (`code`)
+    - [x] Name (`product_name`)
+    - [x] Image URL (`image_url`)
+    - [x] Ingredients (`ingredients_text_en`, `ingredients_text`)
+    - [x] Quantity (`quantity`)
+    - [x] Brands (`brands`)
 
 # License
 Licensed under the GNU GPLv3, see the [license](./LICENSE).
