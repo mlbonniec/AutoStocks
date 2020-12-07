@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import data, { ISku } from '../controllers/data';
+import { getProductData, ProductData } from '../controllers/data';
 import Sheet from '../controllers/sheet';
 
 const router = Router();
@@ -8,20 +8,20 @@ const sheet = new Sheet(process.env.GOOGLE_SPREADSHEETS_ID, process.env.GOOGLE_S
 router.post('/:skuId', async (req: Request, res: Response) => {
   const { skuId } = req.params;
 
-  try {    
-    const row: ISku = data.find((e: ISku) => e.EAN === parseInt(skuId, 10))
-    if (!row)
-      return res.status(404).json({ error: 'SKU not found.' });
-    
+  try {
+    const data: ProductData | null = await getProductData(skuId);
+    if (!data)
+      return res.status(404).json({ error: 'Product not found.' });
+      
     await sheet.init();
-    await sheet.addRow(row);
+    await sheet.addRow(data);
 
-    res.status(200).send(row);
+    res.status(200).json(data);
   } catch (e) {
-    if (process.env.NODE_ENV === 'production')
+    if (process.env.NODE_ENV !== 'production')
       console.error(e);
 
-    res.status(500).json({ error: 'An internal error has occured. Please try again later.' })
+    res.status(500).json({ error: 'An internal error has occured. Please try again later.' });
   }
 });
 

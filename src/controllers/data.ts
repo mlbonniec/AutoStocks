@@ -1,12 +1,33 @@
-import ospBase from '../data/OSP_BASE.json';
+import axios from 'axios';
 
-export interface ISku {
-  GR_CD: string;
-  GR_LB: string;
-  RETAILER_PRODUCT_ID: string;
-  EAN: number;
+export interface ProductData {
+  brands: string;
+  image: string;
+  ingredients: string;
+  quantity: string;
+  ean: string;
+  name: string;
 }
 
-const data: ISku[] = <any>ospBase;
+async function getProductData(barcode: string): Promise<ProductData | null> {
+  try {
+    const { data: { status, product } } = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${barcode}`);
 
-export default data;
+    if (status === 0)
+      return null;
+    
+    return {
+      ean: product.code,
+      name: product.product_name,
+      image: product.image_url,
+      ingredients: product.ingredients_text_en || product.ingredients_text,
+      quantity: product.quantity,
+      brands: product.brands,
+    };
+  } catch (e) {
+    console.error(e)
+    console.log('erreur');
+  }
+}
+
+export { getProductData };

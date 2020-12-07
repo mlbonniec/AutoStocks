@@ -1,11 +1,11 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet';
-import { ISku } from './data';
+import { ProductData } from './data';
 
 declare class ISpreadSheet {
   constructor(spreadsheetID: string, worksheetID: string);
 
   init(): Promise<void>;
-  addRow(row: ISku): Promise<void>;
+  addRow(row: ProductData): Promise<void>;
 }
 
 class SpreadSheet implements ISpreadSheet {
@@ -13,7 +13,7 @@ class SpreadSheet implements ISpreadSheet {
   private readonly worksheetID: string;
   private worksheet: GoogleSpreadsheetWorksheet;
   
-  constructor(spreadsheetID, worksheetID) {
+  constructor(spreadsheetID: string, worksheetID: string) {
     this.spreadsheet = new GoogleSpreadsheet(spreadsheetID);
     this.worksheetID = worksheetID;
   }
@@ -29,7 +29,7 @@ class SpreadSheet implements ISpreadSheet {
     this.worksheet = this.spreadsheet.sheetsById[this.worksheetID];
   }
   
-  public async addRow(row: ISku): Promise<void> {
+  public async addRow(row: ProductData): Promise<void> {
     await this.worksheet.addRow(<any>row);
   }
 }
