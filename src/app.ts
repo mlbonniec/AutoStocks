@@ -1,7 +1,7 @@
+import bodyParser from 'body-parser';
+import cors from 'cors';
 import express, { Application } from 'express';
 import helmet from 'helmet';
-import cors from 'cors';
-import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import index from './routes/index';
 
@@ -17,5 +17,5 @@ app.use('/', index);
 
 // Application listener
 app.listen(process.env.PORT, () => {
-	console.log(`Server is now listening on port ${process.env.PORT}`);
+  console.log(`Server is now listening on port ${process.env.PORT}`);
 });

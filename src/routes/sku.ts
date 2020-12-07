@@ -12,7 +12,7 @@ router.post('/:skuId', async (req: Request, res: Response) => {
     const data: ProductData | null = await getProductData(skuId);
     if (!data)
       return res.status(404).json({ error: 'Product not found.' });
-      
+
     await sheet.init();
     await sheet.addRow(data);
 

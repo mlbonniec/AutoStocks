@@ -15,7 +15,7 @@ async function getProductData(barcode: string): Promise<ProductData | null> {
 
     if (status === 0)
       return null;
-    
+
     return {
       ean: product.code,
       name: product.product_name,
@@ -25,7 +25,7 @@ async function getProductData(barcode: string): Promise<ProductData | null> {
       brands: product.brands,
     };
   } catch (e) {
-    console.error(e)
+    console.error(e);
     console.log('erreur');
   }
 }
